@@ -9,7 +9,9 @@ class BottomBarItem {
       this.title,
       this.dotColor = AppColors.black,
       this.titleStyle,
-      this.onTap});
+      this.onTap,
+      required this.animation
+    });
 
   final Widget icon;
   final Widget iconSelected;
@@ -17,4 +19,5 @@ class BottomBarItem {
   final Color dotColor;
   final TextStyle? titleStyle;
   final Function(int value)? onTap;
+  final bool animation;
 }

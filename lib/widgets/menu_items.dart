@@ -8,13 +8,14 @@ class BottomBarItems extends StatefulWidget {
     this.barColor = Colors.white,
     this.barGradient,
     this.controller,
+    required this.animation,
     Key? key,
   }) : super(key: key);
   final List<BottomBarItem> bottomBarItemsList;
   final Color barColor;
   final Gradient? barGradient;
   final FloatingBottomBarController? controller;
-
+  final bool animation;
   @override
   State<BottomBarItems> createState() => _BottomBarItemsState();
 }
@@ -98,7 +99,7 @@ class _BottomBarItemsState extends State<BottomBarItems> {
           key: GlobalKey(),
           widgetWidth: width,
           bottomBarItemsModel: value,
-          onTapCallback: (index) => _handleOnTapCallback(index, itemIndex),
+          onTapCallback: (index) => _handleOnTapCallback(index, itemIndex, widget.bottomBarItemsList[itemIndex].animation),
         ),
       );
     });
@@ -107,17 +108,24 @@ class _BottomBarItemsState extends State<BottomBarItems> {
   /// Here, we handle the callback for on tap item.
   /// _currentIndex position item performs the forward animation.
   /// _lastIndex position item performs the reverse animation.
-  void _handleOnTapCallback(int index, int itemIndex) {
-    if (_currentIndex == index) return;
+  void _handleOnTapCallback(int index, int itemIndex, bool isAnimationRequired) {
+    print("Is Animation Required ${isAnimationRequired}");
+    if (!isAnimationRequired) {
 
-    isCloseBtnAdded = false;
-    widget.bottomBarItemsList[itemIndex].onTap?.call(itemIndex);
+      widget.bottomBarItemsList[itemIndex].onTap?.call(itemIndex);
+    }else{
+      if (_currentIndex == index) return;
 
-    _lastIndex = _currentIndex;
-    _currentIndex = index;
+      isCloseBtnAdded = false;
+      widget.bottomBarItemsList[itemIndex].onTap?.call(itemIndex);
 
-    _reverseAnimation();
-    _forwardAnimation();
+      _lastIndex = _currentIndex;
+      _currentIndex = index;
+
+      _reverseAnimation();
+      _forwardAnimation();
+    }
+    return;
   }
 
   /// [_reverseAnimation] method set reverse animation to last menu item.

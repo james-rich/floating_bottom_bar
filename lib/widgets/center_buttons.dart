@@ -154,7 +154,7 @@ class _CenterButtonsState extends State<CenterButtons> {
 
       _addCloseButton().then((_) {
         _height.value =
-            Dimens.buttonHeight * widget.bottomBarCenter.centerIconChild.length;
+            Dimens.buttonHeight * widget.bottomBarCenter.centerIconChild.length + 24;
         _insertItemInAnimatedList();
       });
     });

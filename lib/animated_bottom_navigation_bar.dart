@@ -85,6 +85,7 @@ class AnimatedBottomNavigationBarState
             bottomBarItemsList: widget.bottomBar,
             barGradient: widget.barGradient,
             controller: widget.controller,
+            animation: true,
           ),
           AnimatedButton(
             bottomBarCenterModel: widget.bottomBarCenterModel,
